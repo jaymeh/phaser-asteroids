@@ -15,7 +15,7 @@ var state = {
         var style = { font: "24px Arial", fill: "#fff", align: "center" };
         var t = game.add.text(this.world.centerX, this.world.centerY, text, style);
         t.anchor.setTo(0.5, 0.5); */
-        dialog.init(60, 50);
+        dialog.init(60, 50, {'extendedBackground': true});
 
     },
     preload: function() {
