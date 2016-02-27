@@ -1,3 +1,5 @@
+var RPG = RPG || {};
+
 var dialog = function() {
 	
 };
@@ -5,8 +7,8 @@ var dialog = function() {
 dialog.init = function(width, height, options) {
 	// Take in width and height
 	// Use as a percentage
-	var windowWidth = game.width;
-	var windowHeight = game.height;
+	var windowWidth = RPG.game.width;
+	var windowHeight = RPG.game.height;
 
 	var onePercentWidth = windowWidth / 100;
 	var onePercentHeight = windowHeight / 100;
@@ -14,12 +16,16 @@ dialog.init = function(width, height, options) {
 	options.pixelWidth = onePercentWidth * width;
 	options.pixelHeight = onePercentHeight * height;
 
-	options.centerX = game.world.centerX;
-	options.centerY = game.world.centerY;
+	options.centerX = RPG.game.world.centerX;
+	options.centerY = RPG.game.world.centerY;
 
-	this.drawExtendedBackground(options);		
+	var drawnBackground = this.drawExtendedBackground(options);
 
-	var bmd = game.add.bitmapData(options.pixelWidth, options.pixelHeight);
+	if(drawnBackground) {
+		
+	}
+
+	var bmd = RPG.game.add.bitmapData(options.pixelWidth, options.pixelHeight);
 	 
 	bmd.ctx.beginPath();
 	bmd.ctx.rect(0, 0, options.pixelWidth, options.pixelHeight);
@@ -28,7 +34,7 @@ dialog.init = function(width, height, options) {
 	bmd.ctx.lineWidth=10;
 	bmd.ctx.strokeStyle="#6b4200";
 	bmd.ctx.stroke();
-	drawnObject = game.add.sprite(options.centerX, options.centerY, bmd);
+	drawnObject = RPG.game.add.sprite(options.centerX, options.centerY, bmd);
 	drawnObject.anchor.setTo(0.5, 0.5);
 
 	// Find top left hand corner
@@ -43,14 +49,16 @@ dialog.init = function(width, height, options) {
 
 dialog.drawExtendedBackground = function(options) {
 	if (undefined != options.extendedBackground && options.extendedBackground === true) {
-		var bmdBack = game.add.bitmapData(options.pixelWidth + 15, options.pixelHeight + 15);
+		var bmdBack = RPG.game.add.bitmapData(options.pixelWidth + 15, options.pixelHeight + 15);
 
 		bmdBack.ctx.beginPath();
 		bmdBack.ctx.rect(0, 0, options.pixelWidth + 15, options.pixelHeight + 15);
 		bmdBack.ctx.fillStyle = '#b87b00';
 		bmdBack.ctx.fill();
 
-		drawnObjectBack = game.add.sprite(options.centerX, options.centerY, bmdBack);
+		drawnObjectBack = RPG.game.add.sprite(options.centerX, options.centerY, bmdBack);
 		drawnObjectBack.anchor.setTo(0.5, 0.5);
+
+		return drawnObjectBack;
 	}
 };

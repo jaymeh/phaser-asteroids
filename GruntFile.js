@@ -3,6 +3,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -16,10 +17,19 @@ module.exports = function (grunt) {
         },
         concat: {
             dist: {
-                src: [  "src/lib/**/*.js",
-                    "src/game/**/*.js"
+                src: [  
+                    "src/lib/**/*.js",
+                    "src/game/states/*.js",
+                    "src/game/ui/*.js",
+                    "src/game/main.js"
                      ],
                 dest: 'deploy/js/<%= pkg.name %>.js'
+            }
+        },
+        uglify: {
+            build: {
+                src: 'deploy/js/<%= pkg.name %>.js',
+                dest: 'deploy/js/<%= pkg.name %>.min.js'
             }
         },
         watch: {
@@ -34,5 +44,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('default', ['concat', 'connect', 'open', 'watch']);
+    grunt.registerTask('compress', ['uglify']);
 
 }
