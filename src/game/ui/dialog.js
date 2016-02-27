@@ -1,50 +1,56 @@
-var dialog = {
-	init: function(width, height, options) {
-		// Take in width and height
-		// Use as a percentage
-		var windowWidth = game.width;
-		var windowHeight = game.height;
+var dialog = function() {
+	
+};
 
-		var onePercentWidth = windowWidth / 100;
-		var onePercentHeight = windowHeight / 100;
+dialog.init = function(width, height, options) {
+	// Take in width and height
+	// Use as a percentage
+	var windowWidth = game.width;
+	var windowHeight = game.height;
 
-		var pixelWidth = onePercentWidth * width;
-		var pixelHeight = onePercentHeight * height;
+	var onePercentWidth = windowWidth / 100;
+	var onePercentHeight = windowHeight / 100;
 
-		var centerX = game.world.centerX;
-		var centerY = game.world.centerY;
+	options.pixelWidth = onePercentWidth * width;
+	options.pixelHeight = onePercentHeight * height;
 
-		if (undefined != options.extendedBackground && options.extendedBackground === true) {
-			var bmdBack = game.add.bitmapData(pixelWidth + 15, pixelHeight + 15);
+	options.centerX = game.world.centerX;
+	options.centerY = game.world.centerY;
 
-			bmdBack.ctx.beginPath();
-			bmdBack.ctx.rect(0, 0, pixelWidth + 15, pixelHeight + 15);
-			bmdBack.ctx.fillStyle = '#b87b00';
-			bmdBack.ctx.fill();
+	this.drawExtendedBackground(options);		
 
-			drawnObjectBack = game.add.sprite(centerX, centerY, bmdBack);
-			drawnObjectBack.anchor.setTo(0.5, 0.5);
-		}
+	var bmd = game.add.bitmapData(options.pixelWidth, options.pixelHeight);
+	 
+	bmd.ctx.beginPath();
+	bmd.ctx.rect(0, 0, options.pixelWidth, options.pixelHeight);
+	bmd.ctx.fillStyle = '#b87b00';
+	bmd.ctx.fill();
+	bmd.ctx.lineWidth=10;
+	bmd.ctx.strokeStyle="#6b4200";
+	bmd.ctx.stroke();
+	drawnObject = game.add.sprite(options.centerX, options.centerY, bmd);
+	drawnObject.anchor.setTo(0.5, 0.5);
 
-		var bmd = game.add.bitmapData(pixelWidth, pixelHeight);
-		 
-		bmd.ctx.beginPath();
-		bmd.ctx.rect(0, 0, pixelWidth, pixelHeight);
-		bmd.ctx.fillStyle = '#b87b00';
-		bmd.ctx.fill();
-		bmd.ctx.lineWidth=10;
-		bmd.ctx.strokeStyle="#6b4200";
-		bmd.ctx.stroke();
-		drawnObject = game.add.sprite(centerX, centerY, bmd);
-		drawnObject.anchor.setTo(0.5, 0.5);
+	// Find top left hand corner
+	var topLeft =  { x: options.centerX - (options.pixelWidth / 2), y: options.centerY - (options.pixelHeight / 2) };
+	var topRight =  { x: options.centerX + (options.pixelWidth / 2), y: options.centerY - (options.pixelHeight / 2) };
 
-		// Find top left hand corner
-		var topLeft =  { x: centerX - (pixelWidth / 2), y: centerY - (pixelHeight / 2) };
-		var topRight =  { x: centerX + (pixelWidth / 2), y: centerY - (pixelHeight / 2) };
+	var bottomLeft =  { x: options.centerX - (options.pixelWidth / 2), y: options.centerY + (options.pixelHeight / 2) };
+	var bottomRight =  { x: options.centerX + (options.pixelWidth / 2), y: options.centerY + (options.pixelHeight / 2) };
 
-		var bottomLeft =  { x: centerX - (pixelWidth / 2), y: centerY + (pixelHeight / 2) };
-		var bottomRight =  { x: centerX + (pixelWidth / 2), y: centerY + (pixelHeight / 2) };
+	// Draw corner sprite in each corner
+};
 
-		// Draw corner sprite in each corner
-	},
-}
+dialog.drawExtendedBackground = function(options) {
+	if (undefined != options.extendedBackground && options.extendedBackground === true) {
+		var bmdBack = game.add.bitmapData(options.pixelWidth + 15, options.pixelHeight + 15);
+
+		bmdBack.ctx.beginPath();
+		bmdBack.ctx.rect(0, 0, options.pixelWidth + 15, options.pixelHeight + 15);
+		bmdBack.ctx.fillStyle = '#b87b00';
+		bmdBack.ctx.fill();
+
+		drawnObjectBack = game.add.sprite(options.centerX, options.centerY, bmdBack);
+		drawnObjectBack.anchor.setTo(0.5, 0.5);
+	}
+};
