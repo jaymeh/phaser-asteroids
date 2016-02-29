@@ -20,6 +20,7 @@ module.exports = function (grunt) {
             dist: {
                 src: [  
                     "src/lib/**/*.js",
+                    "src/game/prefabs/*.js",
                     "src/game/states/*.js",
                     "src/game/ui/*.js",
                     "src/game/main.js"

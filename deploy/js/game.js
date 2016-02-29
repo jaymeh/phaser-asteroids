@@ -27,17 +27,40 @@ this._flowQuantity=c,this._flowTotal=d,e?(this.start(!0,a,b,c),this._counter+=c,
 //# sourceMappingURL=phaser.map
 var RPG = RPG || {};
 
+RPG.Player = {
+	init: function() {
+		// Create the player sprite on screen
+		RPG.game.load.atlas('character', '../assets/character.png', '../assets/character.JSON', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+		// Setup physics
+
+		//RPG.game.add.sprite(0, 0, 'character', 'front.png');
+	},
+
+	create: function() {
+		RPG.Player.sprite = RPG.game.add.sprite(60, 60, 'character', 'side.png');
+
+		RPG.Player.sprite.anchor.setTo(0.5, 0.5);
+		RPG.Player.sprite.smoothed = false;
+
+		RPG.Player.sprite.scale.setTo(3, 3);
+	},
+};
+var RPG = RPG || {};
+
 RPG.GameState = {
     init: function() {
         // Delete this init block or replace with your own logic.
-        dialog.init(60, 50, {'extendedBackground': true});
+        RPG.Dialog.init(60, 50, {'extendedBackground': true});
+        RPG.Player.init();
 
     },
     preload: function() {
-        // STate preload logic goes here
+        // State preload logic goes here
+        RPG.game.load.atlas('character', '../assets/character.png', '../assets/character.JSON', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
     },
     create: function(){
       // State create logic goes here
+      RPG.Player.create();
     },
     update: function() {
         // State Update Logic goes here.
@@ -45,67 +68,65 @@ RPG.GameState = {
 }; 
 var RPG = RPG || {};
 
-var dialog = function() {
-	
-};
+RPG.Dialog = {
+	init: function(width, height, options) {
+		// Take in width and height
+		// Use as a percentage
+		var windowWidth = RPG.game.width;
+		var windowHeight = RPG.game.height;
 
-dialog.init = function(width, height, options) {
-	// Take in width and height
-	// Use as a percentage
-	var windowWidth = RPG.game.width;
-	var windowHeight = RPG.game.height;
+		var onePercentWidth = windowWidth / 100;
+		var onePercentHeight = windowHeight / 100;
 
-	var onePercentWidth = windowWidth / 100;
-	var onePercentHeight = windowHeight / 100;
+		options.pixelWidth = onePercentWidth * width;
+		options.pixelHeight = onePercentHeight * height;
 
-	options.pixelWidth = onePercentWidth * width;
-	options.pixelHeight = onePercentHeight * height;
+		options.centerX = RPG.game.world.centerX;
+		options.centerY = RPG.game.world.centerY;
 
-	options.centerX = RPG.game.world.centerX;
-	options.centerY = RPG.game.world.centerY;
+		var drawnBackground = this.drawExtendedBackground(options);
 
-	var drawnBackground = this.drawExtendedBackground(options);
+		if(drawnBackground) {
+			
+		}
 
-	if(drawnBackground) {
-		
-	}
+		var bmd = RPG.game.add.bitmapData(options.pixelWidth, options.pixelHeight);
+		 
+		bmd.ctx.beginPath();
+		bmd.ctx.rect(0, 0, options.pixelWidth, options.pixelHeight);
+		bmd.ctx.fillStyle = '#b87b00';
+		bmd.ctx.fill();
+		bmd.ctx.lineWidth=10;
+		bmd.ctx.strokeStyle="#6b4200";
+		bmd.ctx.stroke();
+		drawnObject = RPG.game.add.sprite(options.centerX, options.centerY, bmd);
+		drawnObject.anchor.setTo(0.5, 0.5);
 
-	var bmd = RPG.game.add.bitmapData(options.pixelWidth, options.pixelHeight);
-	 
-	bmd.ctx.beginPath();
-	bmd.ctx.rect(0, 0, options.pixelWidth, options.pixelHeight);
-	bmd.ctx.fillStyle = '#b87b00';
-	bmd.ctx.fill();
-	bmd.ctx.lineWidth=10;
-	bmd.ctx.strokeStyle="#6b4200";
-	bmd.ctx.stroke();
-	drawnObject = RPG.game.add.sprite(options.centerX, options.centerY, bmd);
-	drawnObject.anchor.setTo(0.5, 0.5);
+		// Find top left hand corner
+		var topLeft =  { x: options.centerX - (options.pixelWidth / 2), y: options.centerY - (options.pixelHeight / 2) };
+		var topRight =  { x: options.centerX + (options.pixelWidth / 2), y: options.centerY - (options.pixelHeight / 2) };
 
-	// Find top left hand corner
-	var topLeft =  { x: options.centerX - (options.pixelWidth / 2), y: options.centerY - (options.pixelHeight / 2) };
-	var topRight =  { x: options.centerX + (options.pixelWidth / 2), y: options.centerY - (options.pixelHeight / 2) };
+		var bottomLeft =  { x: options.centerX - (options.pixelWidth / 2), y: options.centerY + (options.pixelHeight / 2) };
+		var bottomRight =  { x: options.centerX + (options.pixelWidth / 2), y: options.centerY + (options.pixelHeight / 2) };
 
-	var bottomLeft =  { x: options.centerX - (options.pixelWidth / 2), y: options.centerY + (options.pixelHeight / 2) };
-	var bottomRight =  { x: options.centerX + (options.pixelWidth / 2), y: options.centerY + (options.pixelHeight / 2) };
+		// Draw corner sprite in each corner
+	},
 
-	// Draw corner sprite in each corner
-};
+	drawExtendedBackground: function(options) {
+		if (undefined != options.extendedBackground && options.extendedBackground === true) {
+			var bmdBack = RPG.game.add.bitmapData(options.pixelWidth + 15, options.pixelHeight + 15);
 
-dialog.drawExtendedBackground = function(options) {
-	if (undefined != options.extendedBackground && options.extendedBackground === true) {
-		var bmdBack = RPG.game.add.bitmapData(options.pixelWidth + 15, options.pixelHeight + 15);
+			bmdBack.ctx.beginPath();
+			bmdBack.ctx.rect(0, 0, options.pixelWidth + 15, options.pixelHeight + 15);
+			bmdBack.ctx.fillStyle = '#b87b00';
+			bmdBack.ctx.fill();
 
-		bmdBack.ctx.beginPath();
-		bmdBack.ctx.rect(0, 0, options.pixelWidth + 15, options.pixelHeight + 15);
-		bmdBack.ctx.fillStyle = '#b87b00';
-		bmdBack.ctx.fill();
+			drawnObjectBack = RPG.game.add.sprite(options.centerX, options.centerY, bmdBack);
+			drawnObjectBack.anchor.setTo(0.5, 0.5);
 
-		drawnObjectBack = RPG.game.add.sprite(options.centerX, options.centerY, bmdBack);
-		drawnObjectBack.anchor.setTo(0.5, 0.5);
-
-		return drawnObjectBack;
-	}
+			return drawnObjectBack;
+		}
+	},
 };
 /**
  *
