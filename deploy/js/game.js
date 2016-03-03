@@ -35,11 +35,13 @@ RPG.Player = function(state, x, y, data) {
 	this.scale.setTo(3, 3);
 
 	//walking left
-	this.animations.add('walk_side', ["side-01.png", "side-02.png", "side-01.png"], 3, true);
+	this.animations.add('walk_side', ["side-01.png", "side-02.png", "side-01.png"], 20, true);
 
-	this.animations.add('walk_down', ["front-02.png", "front-01.png", "front-02.png", "front-03.png"], 3, true);
+	this.animations.add('walk_down', ["front-02.png", "front-01.png", "front-02.png", "front-03.png"], 20, true);
 
-	this.animations.add('walk_up', ["back-02.png", "back-01.png", "back-02.png", "back-03.png"], 3, true);
+	this.animations.add('walk_up', ["back-02.png", "back-01.png", "back-02.png", "back-03.png"], 20, true);
+
+	this.game.physics.arcade.enable(this);
 };
 
 RPG.Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -50,6 +52,9 @@ RPG.GameState = {
     init: function() {
         // Delete this init block or replace with your own logic.
         RPG.Dialog.init(60, 50, {'extendedBackground': true});
+
+        //keyboard cursors
+        this.cursors = this.game.input.keyboard.createCursorKeys();
     },
     preload: function() {
         // State preload logic goes here
@@ -58,7 +63,9 @@ RPG.GameState = {
     create: function(){
       // State create logic goes here
       // RPG.Player.create();
-      console.log('create');
+
+      RPG.game.physics.startSystem(Phaser.Physics.ARCADE);
+
       var playerData = {};
       this.player = new RPG.Player(this, 100, 100, playerData);
 
@@ -68,6 +75,35 @@ RPG.GameState = {
     },
     update: function() {
         // State Update Logic goes here.
+        //stop each time
+        this.player.body.velocity.x = 0;
+        this.player.body.velocity.y = 0;
+
+        if(this.cursors.left.isDown) {
+          this.player.body.velocity.x = -90;
+          this.player.scale.setTo(3,3);
+          this.player.play('walk_side');
+        }
+        if(this.cursors.right.isDown) {
+          this.player.body.velocity.x = 90;
+          this.player.scale.setTo(-3,3);
+          this.player.play('walk_side');
+        }
+        if(this.cursors.up.isDown) {
+          this.player.body.velocity.y = -90;
+          this.player.play('walk_up');
+        }
+        if(this.cursors.down.isDown) {
+          this.player.body.velocity.y = 90;
+          this.player.play('walk_down');
+        }
+
+        //play walking animation'
+        if(this.player.body.velocity.x == 0 && this.player.body.velocity.y == 0) {
+          this.player.animations.stop();
+          //this.player.frame = 1;
+          console.log(this.player.body.velocity);
+        }
     }
 }; 
 var RPG = RPG || {};
