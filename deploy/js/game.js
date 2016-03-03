@@ -27,32 +27,29 @@ this._flowQuantity=c,this._flowTotal=d,e?(this.start(!0,a,b,c),this._counter+=c,
 //# sourceMappingURL=phaser.map
 var RPG = RPG || {};
 
-RPG.Player = {
-	init: function() {
-		// Create the player sprite on screen
-		RPG.game.load.atlas('character', '../assets/character.png', '../assets/character.JSON', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
-		// Setup physics
+RPG.Player = function(state, x, y, data) {
+	Phaser.Sprite.call(this, state.game, x, y, 'character');
 
-		//RPG.game.add.sprite(0, 0, 'character', 'front.png');
-	},
+	this.smoothed = false;
+	this.anchor.setTo(0.5, 0.5);
+	this.scale.setTo(3, 3);
 
-	create: function() {
-		RPG.Player.sprite = RPG.game.add.sprite(60, 60, 'character', 'side.png');
+	//walking left
+	this.animations.add('walk_side', ["side-01.png", "side-02.png", "side-01.png"], 3, true);
 
-		RPG.Player.sprite.anchor.setTo(0.5, 0.5);
-		RPG.Player.sprite.smoothed = false;
+	this.animations.add('walk_down', ["front-02.png", "front-01.png", "front-02.png", "front-03.png"], 3, true);
 
-		RPG.Player.sprite.scale.setTo(3, 3);
-	},
+	this.animations.add('walk_up', ["back-02.png", "back-01.png", "back-02.png", "back-03.png"], 3, true);
 };
+
+RPG.Player.prototype = Object.create(Phaser.Sprite.prototype);
+RPG.Player.prototype.constructor = RPG.Player;
 var RPG = RPG || {};
 
 RPG.GameState = {
     init: function() {
         // Delete this init block or replace with your own logic.
         RPG.Dialog.init(60, 50, {'extendedBackground': true});
-        RPG.Player.init();
-
     },
     preload: function() {
         // State preload logic goes here
@@ -60,7 +57,14 @@ RPG.GameState = {
     },
     create: function(){
       // State create logic goes here
-      RPG.Player.create();
+      // RPG.Player.create();
+      console.log('create');
+      var playerData = {};
+      this.player = new RPG.Player(this, 100, 100, playerData);
+
+      this.add.existing(this.player);
+
+      this.player.play('walk_up');
     },
     update: function() {
         // State Update Logic goes here.

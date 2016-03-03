@@ -1,6 +1,6 @@
 {"frames": {
 
-"back.png":
+"back-01.png":
 {
 	"frame": {"x":1,"y":1,"w":16,"h":16},
 	"rotated": false,
@@ -8,7 +8,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
 	"sourceSize": {"w":16,"h":16}
 },
-"front.png":
+"back-02.png":
 {
 	"frame": {"x":19,"y":1,"w":16,"h":16},
 	"rotated": false,
@@ -16,9 +16,49 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
 	"sourceSize": {"w":16,"h":16}
 },
-"side.png":
+"back-03.png":
+{
+	"frame": {"x":1,"y":19,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"front-01.png":
+{
+	"frame": {"x":1,"y":37,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"front-02.png":
+{
+	"frame": {"x":19,"y":19,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"front-03.png":
+{
+	"frame": {"x":19,"y":37,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"side-01.png":
 {
 	"frame": {"x":37,"y":1,"w":15,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"side-02.png":
+{
+	"frame": {"x":37,"y":19,"w":15,"h":16},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
@@ -28,9 +68,9 @@
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "character.png",
-	"format": "RGBA8888",
-	"size": {"w":53,"h":18},
+	"format": "INDEXED",
+	"size": {"w":53,"h":54},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:723db3572e4feea23aa5bc34aa3f8fce:f71c2cb9d29f0596845977e6654b1d6f:42e475aa4a03af306bdc7acb5ff91d19$"
+	"smartupdate": "$TexturePacker:SmartUpdate:cb6732aad4828d958d62b17d488a3850:d4cd53796255870796444bc472139913:42e475aa4a03af306bdc7acb5ff91d19$"
 }
 }

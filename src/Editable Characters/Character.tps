@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.0</string>
+        <string>4.0.2</string>
         <key>fileName</key>
         <string>/Users/jaymeh/Sites/Phaser/phaser-project-template/src/Editable Characters/Character.tps</string>
         <key>autoSDSettings</key>
@@ -58,7 +58,7 @@
         <key>jxrCompressionLevel</key>
         <uint>0</uint>
         <key>ditherType</key>
-        <enum type="SettingsBase::DitherType">NearestNeighbour</enum>
+        <enum type="SettingsBase::DitherType">PngQuantLow</enum>
         <key>backgroundColor</key>
         <uint>0</uint>
         <key>libGdx</key>
@@ -155,7 +155,7 @@
         <key>forceIdenticalLayout</key>
         <false/>
         <key>outputFormat</key>
-        <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
+        <enum type="SettingsBase::OutputFormat">INDEXED</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
@@ -192,9 +192,14 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>back.png</filename>
-            <filename>front.png</filename>
-            <filename>side.png</filename>
+            <filename>back-01.png</filename>
+            <filename>back-02.png</filename>
+            <filename>back-03.png</filename>
+            <filename>front-01.png</filename>
+            <filename>front-02.png</filename>
+            <filename>front-03.png</filename>
+            <filename>side-01.png</filename>
+            <filename>side-02.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
