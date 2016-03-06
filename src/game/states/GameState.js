@@ -10,7 +10,7 @@ RPG.GameState = {
     },
     preload: function() {
         // State preload logic goes here
-        RPG.game.load.atlas('character', '../assets/character.png', '../assets/character.JSON', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+        RPG.game.load.atlas('character', '../assets/character_new.png', '../assets/character_new.JSON', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
     },
     create: function(){
       // State create logic goes here
@@ -33,12 +33,12 @@ RPG.GameState = {
 
         if(this.cursors.left.isDown) {
           this.player.body.velocity.x = -90;
-          this.player.scale.setTo(3,3);
+          this.player.scale.setTo(1, 1);
           this.player.play('walk_side');
         }
         if(this.cursors.right.isDown) {
           this.player.body.velocity.x = 90;
-          this.player.scale.setTo(-3,3);
+          this.player.scale.setTo(-1,1);
           this.player.play('walk_side');
         }
         if(this.cursors.up.isDown) {
@@ -53,8 +53,6 @@ RPG.GameState = {
         //play walking animation'
         if(this.player.body.velocity.x == 0 && this.player.body.velocity.y == 0) {
           this.player.animations.stop();
-          //this.player.frame = 1;
-          console.log(this.player.body.velocity);
         }
     }
 }; 
