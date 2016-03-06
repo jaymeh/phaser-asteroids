@@ -27,6 +27,20 @@ this._flowQuantity=c,this._flowTotal=d,e?(this.start(!0,a,b,c),this._counter+=c,
 //# sourceMappingURL=phaser.map
 var RPG = RPG || {};
 
+RPG.Collider = function(state, x, y, data) {
+	Phaser.Sprite.call(this, state.game, x, y, 'collider');
+
+	this.smoothed = false;
+	this.anchor.setTo(0.5, 0.5);
+	this.scale.setTo(1, 1);
+
+	this.game.physics.arcade.enable(this);
+};
+
+RPG.Collider.prototype = Object.create(Phaser.Sprite.prototype);
+RPG.Collider.prototype.constructor = RPG.Collider;
+var RPG = RPG || {};
+
 RPG.Player = function(state, x, y, data) {
 	Phaser.Sprite.call(this, state.game, x, y, 'character');
 
@@ -41,12 +55,23 @@ RPG.Player = function(state, x, y, data) {
 
 	this.animations.add('walk_up', ["up_01.png", "up_02.png", "up_03.png", "up_04.png", "up_05.png", "up_06.png", "up_07.png", "up_08.png", "up_09.png"], 20, true);
 
-	this.game.physics.arcade.enable(this);
+	// this.game.physics.arcade.enable(this);
 };
 
 RPG.Player.prototype = Object.create(Phaser.Sprite.prototype);
 RPG.Player.prototype.constructor = RPG.Player;
+
+RPG.Player.movementEngine = function() {
+	// console.log(GRID_SIZE);
+	// Detect if theres a solid object in front of me
+
+
+	// If there isn't then we can move that way
+
+	// 
+}
 var RPG = RPG || {};
+var GRID_SIZE  = GRID_SIZE || 32;
 
 RPG.GameState = {
     init: function() {
@@ -59,24 +84,28 @@ RPG.GameState = {
     preload: function() {
         // State preload logic goes here
         RPG.game.load.atlas('character', '../assets/character_new.png', '../assets/character_new.JSON', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+        RPG.game.load.image('collider', '../assets/collider.png');
     },
     create: function(){
-      // State create logic goes here
-      // RPG.Player.create();
-
+      // Start Physics system
       RPG.game.physics.startSystem(Phaser.Physics.ARCADE);
 
+      // Load our player onto screen
       var playerData = {};
       this.player = new RPG.Player(this, 100, 100, playerData);
-
       this.add.existing(this.player);
+      
+      // Load our collider onto screen
+      var colliderData = {};
+      this.collider = new RPG.Collider(this, 100, (100 + GRID_SIZE), colliderData);
+      this.add.existing(this.collider);
 
-      this.player.play('walk_up');
+      this.player.play('walk_side');
     },
     update: function() {
         // State Update Logic goes here.
         //stop each time
-        this.player.body.velocity.x = 0;
+        /*this.player.body.velocity.x = 0;
         this.player.body.velocity.y = 0;
 
         if(this.cursors.left.isDown) {
@@ -101,7 +130,9 @@ RPG.GameState = {
         //play walking animation'
         if(this.player.body.velocity.x == 0 && this.player.body.velocity.y == 0) {
           this.player.animations.stop();
-        }
+        } */
+
+        RPG.Player.movementEngine();
     }
 }; 
 var RPG = RPG || {};
@@ -175,6 +206,8 @@ RPG.Dialog = {
  */
 
 var RPG = RPG || {};
+
+var GRID_SIZE = 32 || 32;
 
 RPG.game = new Phaser.Game(
     '100%',

@@ -8,6 +8,8 @@
 
 var RPG = RPG || {};
 
+var GRID_SIZE = 32 || 32;
+
 RPG.game = new Phaser.Game(
     '100%',
     '100%',

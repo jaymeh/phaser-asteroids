@@ -14,8 +14,18 @@ RPG.Player = function(state, x, y, data) {
 
 	this.animations.add('walk_up', ["up_01.png", "up_02.png", "up_03.png", "up_04.png", "up_05.png", "up_06.png", "up_07.png", "up_08.png", "up_09.png"], 20, true);
 
-	this.game.physics.arcade.enable(this);
+	// this.game.physics.arcade.enable(this);
 };
 
 RPG.Player.prototype = Object.create(Phaser.Sprite.prototype);
 RPG.Player.prototype.constructor = RPG.Player;
+
+RPG.Player.movementEngine = function() {
+	// console.log(GRID_SIZE);
+	// Detect if theres a solid object in front of me
+
+
+	// If there isn't then we can move that way
+
+	// 
+}
