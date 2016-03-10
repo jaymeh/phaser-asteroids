@@ -11,7 +11,7 @@ RPG.GameState = {
     },
     preload: function() {
         // State preload logic goes here
-        RPG.game.load.atlas('character', '../assets/character_new.png', '../assets/character_new.JSON', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+        RPG.game.load.atlas('character', '../assets/guy.png', '../assets/guy.JSON', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
         RPG.game.load.image('collider', '../assets/collider.png');
     },
     create: function(){
