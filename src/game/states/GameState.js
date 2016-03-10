@@ -24,15 +24,17 @@ RPG.GameState = {
       this.add.existing(this.player);
       
       // Load our collider onto screen
-      var colliderData = {};
+      /*var colliderData = {};
       this.collider = new RPG.Collider(this, 100, (100 + GRID_SIZE), colliderData);
-      this.add.existing(this.collider);
+      this.add.existing(this.collider); */
 
-      this.player.play('walk_side');
+      // this.player.play('walk_side');
     },
     update: function() {
         // State Update Logic goes here.
         //stop each time
+        RPG.Player.movementEngine(this.player);
+
         /*this.player.body.velocity.x = 0;
         this.player.body.velocity.y = 0;
 
@@ -59,7 +61,5 @@ RPG.GameState = {
         if(this.player.body.velocity.x == 0 && this.player.body.velocity.y == 0) {
           this.player.animations.stop();
         } */
-
-        RPG.Player.movementEngine();
     }
 }; 
