@@ -24,6 +24,9 @@ RPG.Player = function(state, x, y, data) {
 	this.animations.add('walk_side', ["side_03.png", "side_02.png", "side_01.png"], 8, true);
 	this.animations.add('walk_down', ["down_01.png", "down_02.png", "down_03.png"], 8, true);
 	this.animations.add('walk_up', ["up_03.png", "up_02.png", "up_01.png"], 8, true);
+
+	this.animations.play('walk_down');
+	this.animations.stop();
 };
 
 // Javascript inheritance from Phaser.Sprite and setup function called on class startup (constructor)
