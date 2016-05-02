@@ -6,15 +6,15 @@
  *
  */
 
-var RPG = RPG || {};
+var Asteroids = Asteroids || {};
 
 var GRID_SIZE = 32 || 32;
 
-RPG.game = new Phaser.Game(
+Asteroids.game = new Phaser.Game(
     '100%',
     '100%',
     Phaser.AUTO
 );
 
-RPG.game.state.add('GameState', RPG.GameState);
-RPG.game.state.start('GameState');
+Asteroids.game.state.add('GameState', Asteroids.GameState);
+Asteroids.game.state.start('GameState');
