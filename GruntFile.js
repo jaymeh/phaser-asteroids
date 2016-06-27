@@ -18,8 +18,7 @@ module.exports = function (grunt) {
         },
         concat: {
             dist: {
-                src: [  
-                    "src/lib/**/*.js",
+                src: [
                     "src/game/prefabs/*.js",
                     "src/game/states/*.js",
                     "src/game/ui/*.js",
