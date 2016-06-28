@@ -1,20 +1,5 @@
 var Asteroids = Asteroids || {};
 
-// TODO: While this class is simple we may not need to but perhaps implement the data variable and setup
-Asteroids.Player = function(state, x, y, data) {
-	// This allows us to inherit all properties of the sprite class
-	// Phaser.Sprite.call(this, state.game, x, y, 'character');
-};
-
-// Javascript inheritance from Phaser.Sprite and setup function called on class startup (constructor)
-Asteroids.Player.prototype = Object.create(Phaser.Sprite.prototype);
-Asteroids.Player.prototype.constructor = Asteroids.Player;
-
-Asteroids.Player.movementEngine = function(player) {
-	
-}
-var Asteroids = Asteroids || {};
-
 Asteroids.GameState = {
 	init: function() {
 		//keyboard cursors
@@ -22,15 +7,39 @@ Asteroids.GameState = {
 	},
 	preload: function() {
 		// State preload logic goes here
+		Asteroids.game.load.image('ship', 'assets/sprites/player.png')
 	},
 	create: function(){
 	  // Start Physics system
 	  Asteroids.game.physics.startSystem(Phaser.Physics.ARCADE);
+
+	  this.player = Asteroids.game.add.sprite(Asteroids.game.width / 2, Asteroids.game.height / 2, 'ship');
+	  this.player.anchor.setTo(0.5, 0.5);
+	  this.player.scale.setTo(0.5);
+	  Asteroids.game.physics.arcade.enable([this.player]);
+
 	},
 	update: function() {
 		// State Update Logic goes here.
-		
-	}
+		// Asteroids.Player();
+		this.playerMove();
+	},
+	playerMove: function() {
+		this.player.body.velocity.x = 0;
+	    this.player.body.velocity.y = 0;
+	    this.player.body.angularVelocity = 0;
+
+		if (Asteroids.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+	        this.player.body.angularVelocity -= 200;
+	    }
+	    else if (Asteroids.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+	        this.player.body.angularVelocity = 200;
+	    }
+
+	    if (Asteroids.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+	        Asteroids.game.physics.arcade.velocityFromAngle(this.player.angle, 300, this.player.body.velocity);
+	    }
+	},
 }; 
 /**
  *
