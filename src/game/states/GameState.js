@@ -18,6 +18,9 @@ Asteroids.GameState = {
 	  this.player.scale.setTo(0.5);
 	  Asteroids.game.physics.arcade.enable([this.player]);
 
+	  this.player.body.drag.set(20);
+	  this.player.body.maxVelocity.set(400);
+
 	},
 	update: function() {
 		// State Update Logic goes here.
@@ -25,19 +28,22 @@ Asteroids.GameState = {
 		this.playerMove();
 	},
 	playerMove: function() {
-		this.player.body.velocity.x = 0;
-	    this.player.body.velocity.y = 0;
-	    this.player.body.angularVelocity = 0;
-
 		if (Asteroids.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-	        this.player.body.angularVelocity -= 200;
+	        this.player.body.angularVelocity = -300;
 	    }
 	    else if (Asteroids.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-	        this.player.body.angularVelocity = 200;
+	        this.player.body.angularVelocity = 300;
+	    } else {
+	    	this.player.body.angularVelocity = 0;
 	    }
 
+	    console.log(this.player.body.acceleration);
+	    console.log(this.player.rotation);
+
 	    if (Asteroids.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-	        Asteroids.game.physics.arcade.velocityFromAngle(this.player.angle, 300, this.player.body.velocity);
+	        Asteroids.game.physics.arcade.accelerationFromRotation(this.player.rotation, 400, this.player.body.acceleration);
+	    } else {
+	    	this.player.body.acceleration.set(0);
 	    }
 	},
 }; 
